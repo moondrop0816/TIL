@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // # 문제19 : 제곱을 구하자
+
+        // 공백으로 구분하여 두 숫자 a와 b가 주어지면, **a의 b승**을 구하는 프로그램을 작성하세요.
+
+        // 답안
+        // const n = prompt('수를 입력하세요.').split(' ');
+
+        // console.log(Math.pow(parseInt(n[0], 10), parseInt(n[1], 10)));
+        // parseInt : 문자열 인자를 파싱하여 특정 진수(수의 진법 체계에서 기준이 되는 값)의 정수를 반환
+
+        let result = 0;
+        let numArr = prompt('두개의 숫자를 입력하세요.');
+        // prompt가 받아오는 값은 string이므로 .split() 메서드를 이용해 공백을 기준으로 구분하여 배열로 바꾸어줌
+        numArr = numArr.split(' ');
+        result = Math.pow(numArr[0], numArr[1]);
+        
+        // Math.pow(밑값, 밑을 제곱할 지수) : 제곱근 구하는 메서드
+        console.log(result);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

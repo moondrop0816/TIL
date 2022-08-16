@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // # 문제16 : 로꾸거
+
+        // 문장이 입력되면 거꾸로 출력하는 프로그램을 만들어 봅시다.
+
+        // 입출력
+
+        // 입력 : 거꾸로
+        // 출력 : 로꾸거
+
+        var txt = '거꾸로';
+        var result = '';
+        result = txt.split('').reverse().join('');
+
+        // .split(구분자) : string 객체를 지정한 구분자를 이용하여 여러개의 문자열로 나누어 배열에 담아 반환함
+        // .reverse : 배열의 순서를 반전. 
+        // .join([구분자]) : 배열의 모든 요소를 연결해 하나의 문자열로 만듬. 구분자가 빈 문자열이면 사이에 아무것도 없이 연결됨
+
+        console.log(result);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

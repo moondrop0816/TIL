@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // # 문제29 : 대문자만 지나가세요
+
+        // 진구는 영어 학원 아르바이트를 하고 있습니다. 반 아이들은 알파벳을 공부하는 학생들인데 오늘은 대문자 쓰기 시험을 봤습니다.
+
+        // **알파벳 하나만을 입력하고 그 알파벳이 대문자이면 YES를 아니면 NO를 출력하는 프로그램**을 만들어 주세요.
+
+        const str = prompt('알파벳 하나를 입력하세요');
+
+        if (str === str.toUpperCase()) { 
+            // str과 str을 대문자로 만들었을때를 비교
+            // 예) A일때 A === A 이므로 true. a일때 a === A 이므로 false.
+
+            console.log('YES');
+        } else {
+            console.log('NO');
+        }
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

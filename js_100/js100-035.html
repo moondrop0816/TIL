@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // # 문제35 : Factory 함수 사용하기
+
+        // 2제곱, 3제곱, 4제곱을 할 수 있는 Factory 함수를 만들려고 합니다. 
+
+        // <pass>에 코드를 작성하여 two함수를 완성하세요.
+
+        function one(n) {
+            function two(value) {
+                const sq = Math.pow(value, n);
+                return sq;
+            }
+            return two;
+        }
+        // Math.pow(a, b) : 제곱값 반환. a는 밑 값, b는 밑이 제곱될 지수. 
+        // two의 value가 10
+        // n은 각각 2, 3, 4
+        // Math.pow로 10이 2제곱, 3제곱, 4제곱 된다
+
+        const a = one(2);
+        const b = one(3);
+        const c = one(4);
+
+        console.log(a(10));
+        console.log(b(10));
+        console.log(c(10));
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

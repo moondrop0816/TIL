@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // # 문제12 : 게임 캐릭터 클래스 만들기
+
+        // 다음 소스코드에서 클래스를 작성하여 게임 캐릭터의 능력치와 '파이어볼'이 출력되게 만드시오.
+        // **주어진 소스 코드를 수정해선 안됩니다.**
+
+        // 데이터
+        // <여기에 class를 작성하세요.>
+        class Wizard {
+            constructor (health, mana, armor) {
+                this.health = health;
+                this.mana = mana;
+                this.armor = armor;
+            }
+            attack() {
+                return console.log('파이어볼');
+            }
+        };
+
+        const x = new Wizard(545, 210, 10);
+        console.log(x.health, x.mana, x.armor);
+        x.attack();
+
+
+        // 출력
+        // 545 210 10
+        // 파이어볼
+
+        // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes
+        // https://ordinary-code.tistory.com/22 
+        // 링크 참고해서 했는데 뭔지 잘 모르겠음.. >> 수업때 질문하기!! <<
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
