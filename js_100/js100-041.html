@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // # 문제41 : 소수판별
+
+        // 숫자가 주어지면 **소수인지 아닌지 판별하는 프로그램**을 작성해주세요.
+        // 소수이면 YES로, 소수가 아니면 NO로 출력해주세요.
+        // (소수 : 1과 자기 자신만으로 나누어떨어지는 1보다 큰 양의 정수)
+
+        const num = prompt('숫자를 입력하세요');
+
+        function checkPrime(num) {
+            for (i = 2; i < num; i++) {
+                // num을 2부터 num 미만의 정수로 나누었을때 떨어지는 수가 있는지 확인한다
+                // = 소수는 1과 자기 자신만으로 나누어 떨어져야하니까 나누어 떨어지는 수가 있다면 소수가 아니다
+                const result = num % i;
+
+                if (result === 0) {
+                    console.log('NO');
+                    return false;
+                }
+            }
+
+            // num이 1인지 확인(소수는 1보다 큰 양의 정수이다)
+            if (num == 1) {
+                console.log('NO');
+                return;
+            }
+
+            console.log('YES');
+        }
+
+        checkPrime(num);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
