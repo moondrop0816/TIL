@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 벨로퍼트와 함께하는 모던 리액트
+        01. 리액트는 어쩌다가 만들어졌을까? 
+     -->
+
+     <!-- JS를 이용해 HTML로 구성한 UI를 제어할때는 브라우저의 DOM Selector API를 사용해 특정 DOM을 선택하고 특정 이벤트가 발생하면 변화를 주도록 설정해야한다. -->
+
+     <!-- HTML / JS 카운터 예시 -->
+     <!-- id를 사용해 각 DOM을 선택하고 원하는 이벤트가 발생하면 요소의 특정 속성을 바꾸어준다 -->
+     <h2 id="number">0</h2>
+     <div>
+        <button id="increase">+1</button>
+        <button id="decrease">-1</button>
+     </div>
+
+     <script>
+        const number = document.getElementById('number');
+        const increase = document.getElementById('increase');
+        const decrease = document.getElementById('decrease');
+
+        increase.onclick = () => {
+            const current = parseInt(number.innerText, 10);
+            number.innerText = current + 1;
+        };
+
+        decrease.onclick = () => {
+            const current = parseInt(number.innerText, 10);
+            number.innerText = current - 1;
+        }
+
+        /* **화살표함수
+        원본)
+        let sum = function(a, b) {
+            return a + b;
+        };
+
+        축약)
+        let sum = (a, b) => a + b;
+        */
+
+        /*
+        위 코드는 버튼 클릭시 number의 텍스트 내용을 1씩 더하거나 빼주는 내용. 
+        만약 인터렉션이 자주 발생하고, 동적으로 ui를 표현해야 한다면 규칙이 매우 다양해지고 관리가 힘들어진다. 대부분의 경우 웹 애플리케이션의 규모가 커지면 DOM을 직접 건드리면서 작업하면 코드가 난잡해지기 쉽다. 
+        처리해야할 이벤트도 다양해지고 관리해야할 상태값도 다양해지고 DOM도 다양해지기 때문에 업데이트를 해야하는 규칙도 많고 복잡해진다. 
+
+        이로 인해 다양한 프레임워크들이 만들어졌고, 리액트의 경우에는 어떠한 상태가 바뀌었을때 그 상태에 따라 아예 DOM을 어떻게 업데이트 할지 규칙을 정하는 것이 아니라 아예 다 날려버리고 처음부터 모든 걸 새로 만들어서 보여주는 것이 어떨까 하는 생각에서 개발이 시작되었다. 
+
+        => 따라서 "업데이트를 어떻게 해야할지"에 대한 고민이 줄어든다. 
+
+        매번 모든걸 다 날려버리고 새로 만든다면 속도가 매우 느릴것이다. => Virtual DOM 사용으로 해결
+
+        **Virtual DOM
+        : 가상의 DOM. 브라우저에 실제로 보여지는 DOM이 아니라 메모리에 가상으로 존재하는 것.(자바스크립트 객체). 
+        
+        따라서 실제로 브라우저에서 DOM을 보여주는것보다 속도가 빠르다. 
+
+        리액트는 상태가 업데이트 되면 업데이트가 필요한 곳을 Virtual DOM으로 렌더링한 뒤 실제 브러우저에 보여지는 DOM과 비교해 차이가 있는 곳을 감지하여 실제 DOM에 패치시켜준다. 
+
+
+        */
+     </script>
+</body>
+</html>
