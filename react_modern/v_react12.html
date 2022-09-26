@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 10주 숙제 : 수정기능 구현하기 복습 -->
+
+    <!-- 
+        createuser의 input값을 바꾼다. 
+        선택한 요소의 id값을 받아서 해당하는 것을 map과 filter로 걸러낸다. 
+        현재 입력박수에 입력된 값을 참조할 수 있어야 함. 참조된 값을 users 객체의 해당 user정보에 덮어쓸 수 있어야 함.
+
+        1. 
+        onToggle 함수
+        const targetUser = users.filter(user => user.id === id);
+        user.id와 id가 같은것을 targetUser에 할당. targetUser = 내가 선택한 요소
+
+        2. setInput으로 CreateUser의 input의 상태 변경. => 내가 선택한 요소의 값을 참조하게 함
+        setInputs({
+            username: targetUser[0].username,
+            email: targetUser[0].email
+        });
+
+        3. CreateUser의 등록버튼을 수정버튼으로 바꿈 => 수정모드와 입력모드를 판단할수있어야 한다. 
+        수정모드/입력모드를 나타낼 값 = editYN, setEditYN = 상태관리를 위해 useState로 생성 
+        CreateUser에서 만약 editYN이 N이라면(입력모드라면) 등록버튼을 나타내고 그렇지 않다면 수정 버튼을 나타나게 함
+        editYN을 CreateUser에 참조하도록 props로 내려줌
+        {editYN === 'N' ? <button onClick={onCreate}>등록</button> : <button >수정</button>}
+        editYN이 N이라면 등록버튼이 나타나고 그렇지 않다면 수정버튼이 나타남. 
+        onToggle이 되면 setEditYN을 Y로 바꿔줌 = onToggle이 되면 수정모드가 된다
+        targetId에 id 값 저장 => 리렌더링이 되어도 선택한 id의 값을 기억하도록
+
+        4. 값을 변경한 뒤 수정버튼을 누르면 리스트 항목의 값이 바뀌어 저장되고 수정->등록모드로 전환되며 input의 상태가 빈 모습으로 변화된다. 
+        수정버튼 눌렀을때 실행될 메서드 = onEdit
+        onEdit pros로 내려주기
+        수정할 값을 위해 username과 email을 파라미터로 받아온다 
+        수정된 내용으로 users 객체의 해당 user정보에 덮어쓰기 => setUsers 사용
+        user.id === targetId ? {...user, username: namevalue, email:emailvalue} : user
+        user.id가 targetId(내가 선택한 요소의 id)와 같다면 username은 namevalue로 email은 emailvalue로 수정하여 저장. 
+        ...user로 id값은 바뀌지 않음. 만약 다르다면 변화없음. 
+        setEditYN('N'); => 등록모드로 전환
+        setInput의 값이 빈값이 되도록 상태 변경
+     -->
+</body>
+</html>
