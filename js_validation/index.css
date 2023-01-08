@@ -1,0 +1,175 @@
+@font-face {
+  font-family: 'yg-jalnan';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+  font-family: 'GmarketSansMedium';
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1586788224331-947f68671cf1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80')
+    no-repeat 0 0 / cover;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  height: 600px;
+  perspective: 1100px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: 0.4s;
+  transform-style: preserve-3d;
+}
+
+.card > div {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 30px;
+  border-radius: 30px;
+  position: absolute;
+  backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+  box-shadow: 10px 10px 15px 5px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'yg-jalnan';
+}
+
+h2 {
+  font-family: 'yg-jalnan';
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  margin-bottom: 10px;
+  height: 79px;
+}
+
+input {
+  border: 0;
+  padding: 5px 0;
+  margin-bottom: 5px;
+  border-bottom: 2px solid #333;
+  background-color: transparent;
+}
+
+input:focus {
+  outline: 0;
+}
+
+input::placeholder {
+  color: #999;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  background-color: #ec7b03;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 15px 10px;
+  border-radius: 10px;
+  transition: all 0.5s;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.failure-message {
+  font-size: 14px;
+  color: red;
+}
+.success {
+  border-bottom-color: green;
+}
+.failure {
+  border-bottom-color: red;
+}
+
+.btn-box {
+  margin-top: 20px;
+  align-self: flex-end;
+}
+
+.hide {
+  display: none;
+}
+
+.input-box {
+  height: 380px;
+}
+.complete {
+  transform: rotateY(180deg);
+}
+
+.flip {
+  transform: rotateY(180deg);
+}
+
+.disabled {
+  background-color: #9bd7f2;
+  color: #fff;
+}
+
+.check {
+  width: 100px;
+  height: 100px;
+  background: #ec7b03;
+  border-radius: 50%;
+  position: relative;
+  margin-bottom: 30px;
+}
+.check:after {
+  content: '';
+  width: 30px;
+  height: 15px;
+  border: 5px solid #fff;
+  border-top: 0;
+  border-right: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%) rotate(-45deg);
+}
