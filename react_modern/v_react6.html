@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 08. input 상태 관리하기 -->
+
+    <!-- 
+        예제) 사용자가 직접 입력할 수 있는 input 태그의 상태 관리하는 방법
+        InputSample.js
+
+        1. input에 입력하는 값이 하단에 나타나게 하고 초기화를 누르면 input 값이 비워지게 구현하기. 
+        - useState 사용
+        - onChange 이벤트 사용
+
+        e.target = 이벤트가 발생한 DOM을 가리킨다. 여기에서는 이벤트가 인풋에 걸릴테니 input DOM을 의미함. 
+        e.target.value = input DOM의 value(입력된 값)
+
+        => e.target.value를 useState를 통해 관리한다. 
+
+        const onChange = (e) => {
+            setText(e.target.value);
+            // input에서 onChange 이벤트가 발생할때 동작.
+            // onChange 이벤트가 발생할때마다 text의 상태를 input의 value로 변경해준다
+        }
+
+        input의 상태를 관리할때는 input의 value값도 설정해주어야 한다. 그래야 상태가 바뀌었을때 내용이 업데이트 된다! 
+    -->
+
+    <!-- 09. 여러개의 input 상태 관리하기 -->
+
+    <!-- 
+        예제) input이 여러개일때 상태를 관리하는 법
+
+        input의 개수가 여러개일때는 useState를 여러번 사용하고 onChange도 여러개 만들어서 구현할 수 있지만, input에 name을 설정하고 이벤트가 발생했을때 이 값을 참조하도록 구현하는 방법이 있다. 그리고 useState에서는 문자열이 아니라 객체 형태의 상태를 관리해 주어야 한다. 
+
+        리액트 상태에서 객체를 수정해야 할때는
+        inputs[name] = value 로 직접 수정하면 안됨
+        대신 새로운 객체를 만들어서 변화를 주고 상태로 사용하여야 함
+        setInputs({
+            ...inputs,
+            [name]: value
+        });
+
+        ** ... = spread 문법 : 객체의 내용을 모두 펼쳐서 기존 객체를 복사해줌. 기존의 값을 건드리지 않고 새로운 객체를 만들 수 있음.
+        
+        const animals = ['개', '고양이', '참새'];
+        const anotherAnimals = [...animals, '비둘기'];
+        console.log(animals);
+        console.log(anotherAnimals); // 개 고양이 참새 비둘기
+
+        이러한 작업을 "불변성을 지킨다" 라고 한다. 
+        불변성을 지켜야만 리액트 컴포넌트에서 상태가 업데이트 되었음을 감지할수있고 이에 따라 필요한 리렌더링이 진행된다. 만약 기존 상태를 직접 수정하게 된다면 값을 바꾸어도 리렌더링이 일어나지 않는다. 또 불변성을 지켜주어야만 컴포넌트 업데이트 성능 최적화를 제대로 할 수 있다. 
+
+        "리액트에서 객체를 업데이트 할때는 기존 객체를 직접 수정하는 것이 아니라 새로운 객체를 만들어서 새 객체에 변화를 주어야 한다. "
+     -->
+</body>
+</html>

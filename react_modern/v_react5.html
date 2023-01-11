@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 07. useState를 통해 컴포넌트에서 바뀌는 값 관리하기 -->
+    
+    <!-- 
+        컴포넌트에서 보여줘야 하는 내용이 사용자 인터렉션에 따라 바뀌어야할때. => useState 함수 사용.(리액트 Hooks 중의 하나)
+
+        예제) 버튼을 누르면 숫자가 바뀌는 Counter 컴포넌트
+        1. Counter.js 만들고 App.js에서 렌더링되게 컴포넌트 추가. 
+        2. 버튼 클릭 이벤트 발생시 특정 함수 호출되게 하기. 
+        **화살표 함수! function 대신 => 사용. 
+        함수를 만들고 버튼의 onclick으로 함수를 연결해줌. 
+
+        리액트에서 엘리먼트에 이벤트 설정할때는
+        >> on이벤트이름={실행하고싶은함수} <<
+        형태로 설정해야함. 
+        !주의! 함수형태를 넣어주는 것이지 함수를 실행하면 안됨!
+        ex) onClick={onIncrease()} = XXX
+        => 렌더링되는 시점에서 함수가 호출되어버리기 때문에 꼭 함수 타입의 값을 넣어주어야함. 
+
+        3. 동적인 값 끼얹기, useState
+        컴포넌트에서 동적인 값을 상태(State)라고 함. 리액트의 useState 함수를 사용하면 컴포넌트에서 상태를 관리 할 수 있다. 
+
+        const [number, setNumber] = useState(0);
+
+        아래 코드 세줄과 같은 의미이다. 
+        const numberState = useState(0);
+        const number = numberState[0];
+        const setNumber = numberState[1];
+
+        위의 축약형은 배열 비구조화 할당을 통해 각 원소를 추출해 준것. 
+
+        ** 비구조화 할당
+        배열이나 객체의 속성을 해체하여 그 값을 개별 변수에 담을 수 있게 하는 자바스크립트 표현식. 
+
+        예시)
+        var foo = ["one", "two", "three"];
+
+        var [red, yellow, green] = foo;
+        console.log(red); // "one"
+        console.log(yellow); // "two"
+        console.log(green); // "three"
+
+        4. 함수형 업데이트
+        Setter를 사용할때 업데이트하고싶은 값을 파라미터로 넣어주는 것이 아닌 기존 값을 어떻게 업데이트 할지 함수를 등록하는 방식으로도 사용할수있다. 
+
+        setNumber(prevNumber => prevNumber + 1);
+
+        setNumber(function(prevNumber) {
+            return prevNumber + 1
+        });
+
+        값을 업데이트 하는 함수를 파라미터로 넣어줌. 
+     -->
+     
+</body>
+</html>

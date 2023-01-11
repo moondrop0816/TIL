@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // # 문제46 : 각 자리수의 합 2
+
+        // 1부터 20까지의(20을 포함) 모든 숫자를 일렬로 놓고 모든 자릿수의 총 합을 구하세요. 
+
+        // 예를 들어 10부터 15까지의 모든 숫자를 일렬로 놓으면 101112131415이고 
+        // 각 자리의 숫자를 더하면 21입니다. (1+0+1+1+1+2+1+3+1+4+1+5 = 21)
+
+        // 1부터 20까지를 문자열로 변수 a에 담는다
+        // a를 split으로 1개씩 잘라내 배열로 만든다
+        // 배열 값을 0부터 마지막까지 더한 수를 변수 b에 담아 출력한다
+
+        let a = '';
+        let b = 0;
+
+        for (let i=1; i <= 20; i++) {
+            a += i;
+        }
+
+        a = a.split('');
+
+        for (let i=0; i < a.length; i++) {
+            b += Number(a[i]);
+        }
+
+        console.log(b); // 102
+
+        // 답안
+        // let arr = [];
+        // let sum = 0;
+
+        // for (let i=0; i<20; i++){
+        // arr[i] = i+1;
+        // }
+
+        // arr.forEach((n) => {
+        // while(n !== 0){
+        //     sum += (n % 10);
+        //     n = Math.floor(n/10);
+        // }
+        // })
+
+        // console.log(sum);
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

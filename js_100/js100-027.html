@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // # 문제27 : 객체 만들기
+
+        // 첫번째 입력에서는 학생의 이름이 공백으로 구분되어 입력되고, 두번째에는 그 학생의 수학 점수가 공백으로 구분되어 주어집니다.
+
+        // 두 개를 합쳐 **학생의 이름이 key**이고 **value가 수학 점수**인 객체를 출력해주세요.
+
+        // 입력
+        // Yujin Hyewon
+        // 70 100
+
+        // 출력
+        // {'Yujin': 70, 'Hyewon': 100}
+
+        // 값 입력받아 공백으로 구분해 배열로 만들기
+        let name = prompt('학생의 이름을 입력하세요').split(' ');
+        let math = prompt('수학 점수를 입력하세요').split(' ');
+        const result = {};
+
+        for (i = 0; i < name.length; i++) {
+            result[name[i]] = parseInt(math[i], 10);
+
+            // 객체에 값 추가하는 방법
+            // result.name = math
+            // result[name] = math
+        }
+
+        console.log(result);
+
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

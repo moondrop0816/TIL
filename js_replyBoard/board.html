@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+			margin:0;
+			padding:0;
+			font-family:Verdana,sans-serif;
+			box-sizing:border-box;
+		}
+        input[type='text'], textarea {
+            width: 80%;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+        }
+        .btn {
+            padding: 5px 10px;
+            color: #fff;
+            border: none;
+            outline: none;
+            display: inline-block;
+        }
+        .btn.btn--gray {
+            background-color: #666;
+        }
+        .btn.btn--black {
+            background-color: #333;
+        }
+        .fs-12 {
+            font-size: 12px;
+        }
+        .txt-gray {
+            color: #aaa;
+        }
+        
+
+        div[class$='-box']:not(.reply-box) {
+            width: 550px;
+            text-align: right;
+        }
+        .list-box {
+            background-color: #eee;
+            border: 0;
+        }
+        #list li > div:not(.reply-box),
+        .reply-box .reply-write,
+        .write-box > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        #list li {
+            padding: 20px 10px;
+            border-top: 1px solid #ddd;
+        }
+        .reply-box {
+            text-align: left;
+            /* height: 0; */
+            overflow: hidden;
+            /* display: none; */
+            height: 0;
+            opacity: 0;
+            transition: opacity .8s, height .5s;
+        }
+        li.show .reply-box {
+            height: auto;
+            opacity: 1;
+            overflow: auto;
+        }
+        .write-box div:last-child {
+            margin-bottom: 0;
+        }
+        #list .title,
+        .write-box label {
+            font-weight: bold;
+        }
+        #list .title .reply-count {
+            color: blue;
+            margin-left: 10px;
+        }
+
+        .write-box {
+            border: 1px solid #ddd;
+            padding: 20px 10px;
+        }
+        .write-box label {
+            width: 20%;
+        }
+        .write-box textarea {
+            height: 100px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="list-box">
+        <ul id="list">
+            <!-- <li>
+                <div>
+                    <p class="title">게시글 제목<span class="reply-count">[4]</span></p>
+                    <p class="user-info fs-12 txt-gray">작성자 | 2022-08-02 9:15:69</p>
+                </div>
+                <div>
+                    <p class="content">게시글 본문 내용</p>
+                </div>
+                <div class="reply-box fs-12">
+                    <div class="reply-write">
+                        <input type="text" id="replyUserName" style="width: 18%;">
+                        <input type="text" id="replyContent" style="width: 70%;">
+                        <button id="btnAddReply" class="btn btn--gray">등록</button>
+                    </div>
+                    <div class="reply-list">
+                        <p class="reply">[작성자] 댓글내용 | 2022-08-02 9:15:69</p>
+                    </div>
+                </div>
+            </li> -->
+        </ul>
+    </div>
+    <div class="write-box">
+        <div>
+            <label for="userName">작성자</label>
+            <input type="text" id="userName">
+        </div>
+        <div>
+            <label for="title">제목</label>
+            <input type="text" id="title">
+        </div>
+        <div>
+            <label for="content">내용</label>
+            <textarea id="content"></textarea>
+        </div>
+        <button id="btnAddTxt" class="btn btn--black">글쓰기</button>
+    </div>
+    <script>
+        const btnAddTxt = document.getElementById('btnAddTxt');
+                
+        // 게시글 글쓰기 버튼 클릭시 
+        btnAddTxt.addEventListener('click', function(){
+            // 게시글 관련 변수
+            const userName = document.getElementById('userName');
+            const title = document.getElementById('title');
+            const content = document.getElementById('content');
+            const list = document.getElementById('list');
+            const makeLi = document.createElement('li');
+
+            // 작성 시간 관련 변수
+            let date = new Date();
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1; // 0부터 시작하기 때문에 + 1 해줌
+            let day = date.getDate();
+            let hour = date.getHours();
+            let minute = date.getMinutes();
+            let second = date.getSeconds();
+            let msecond = date.getMilliseconds();
+            let fullDateTime = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + msecond;
+            
+            // 게시글 구조 째로 담을 변수
+            let addList = '';
+
+            // 작성자, 제목, 내용 value가 있는지 유효성 검사
+            // 유효성 검사가 true라면 list-box에 list 추가
+            // false라면 경고창 띄우고 해당부분에 focus
+
+            if (userName.value == "") {
+                // 작성자의 value가 빈값이라면 
+                alert('작성자를 입력해주세요.');
+                userName.focus();
+            } else if (title.value == "") {
+                // 제목의 value가 빈값이라면 
+                alert('제목을 입력해주세요.');
+                title.focus()
+            } else if (content.value == "") {
+                // 내용의 value가 빈값이라면 
+                alert('내용을 입력해주세요.');
+                content.focus();
+            } else {
+                // 작성자와 제목과 내용의 value가 모두 빈값이 아니라면 = 모든 value에 내용이 있다면
+                addList = '<div>'
+                        + '<p class="title">' + title.value + '<span class="reply-count"></span></p>'
+                        + '<p class="user-info fs-12 txt-gray">' + userName.value + ' | ' + fullDateTime +'</p>'
+                    + '</div>'
+                    + '<div>'
+                        + '<p class="content">'+ content.value +'</p>'
+                    + '</div>'
+                    + '<div class="reply-box fs-12">'
+                        + '<div class="reply-write">'
+                            + '<input type="text" class="replyUserName" style="width: 18%;">'
+                            + '<input type="text" class="replyContent" style="width: 70%;">'
+                            + '<button name="btnAddReply" class="btn btn--gray">등록</button>'
+                        + '</div>'
+                        + '<div class="reply-list"></div>'
+                    + '</div>';   
+                    // addList라는 변수에 html 구조를 담아준다 (제목, 작성자, 내용은 해당 input의 value를 받아오도록 함)            
+
+                makeLi.innerHTML = addList;
+                // listLi = li를 만드는 변수안에 addList를 html태그로 넣어줌 = li안에 addList 내용이 들어가있음
+                list.prepend(makeLi);
+                // ul.list에 listLi를 생성시키는데 요소 내부의 시작부분에 넣어줌. 버튼을 누르면 새로 작성한 글이 최신 글이 되도록 함.
+                // prepend : 컨텐츠를 선택한 요소 내부의 시작부분에서 삽입
+
+                // 참고링크 : 자바스크립트 텍스트를 html로 변경하여 추가하기
+                // https://webisfree.com/2017-03-30/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-%ED%85%8D%EC%8A%A4%ED%8A%B8%EB%A5%BC-html-%EC%9A%94%EC%86%8C%EB%A1%9C-%EB%B3%80%EA%B2%BD%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95%EC%9D%80
+            }       
+
+            // 08.03 ) 
+            // 생각해보니까 이렇게 하면 안됨... id는 한 페이지에 하나만 존재하는건데 
+            // 게시글이 여러개 작성되면 버튼도 input도 여러개가 되니까 댓글과 관련된 요소들은 
+            // id가 아닌 다른 방식으로 찾아야만 함
+            
+            // 정리 ) 
+            // list li는 각각의 li에 클릭이벤트가 걸려야 함. 
+            // ㄴ 클릭시 show class가 있다면 댓글 영역을 닫고 없다면 댓글 영역을 보여주는 애니메이션
+            // 각각의 li 내의 댓글 영역에 있는 댓글 작성 인풋들에 유효성 검사 및 댓글 추가 
+            // 원본소스 참고 -> event.target 알아보기!
+            // mdn 링크 : https://developer.mozilla.org/ko/docs/Web/API/Event/target
+
+            // const listLis = document.querySelectorAll('#list li');
+            // const replyBox = document.querySelector('.reply-box');
+
+            // list li 클릭시 reply-box show hide toggle
+            // ul#list에 클릭 이벤트를 걸고 클릭된 개체만 가져옴
+            list.addEventListener('click', liClick);
+
+            // list.addEventListener('click', function(event){
+            //     // li 이외의 요소가 클릭되면 함수를 빠져나가게 함 = 아무것도 실행하지 않음 
+            //     if (event.target.tagName != 'LI') return; 
+
+            //     // 클릭된 요소에 show class가 있다면
+            //     if (event.target.classList.contains('show')) {
+            //         event.target.classList.remove('show');
+            //         console.log('remove');
+            //     } else {
+            //         event.target.classList.add('show');
+            //         console.log('add');
+            //     }
+            // });
+            // .tagName : 요소의 태그명을 가져온다(HTML의 경우 대소문자를 무시하고 대문자로만 이루어진 값을 가져온다)
+
+            // event.target 으로 했는데 왜 자꾸 li 전체를 가져오지 
+            // 내가 원하는 것 - 클릭 이벤트가 발생한 li 하나만 가져오기
+            // 실행되는 거 - 그냥 냅다 li 전체 가져와버리기 (현재 li가 2개라면 2개의 li모두를 콘솔에 출력함)
+            // 헉 모든 li가 아니라 이벤트가 발생한 li를 전체 li 개수만큼 가져오는거였음 충격
+            // 뭐가 문젠지 모르겠다 
+
+            // 비슷한 내용 참고 : https://blog.sogoagain.com/posts/2020/register-the-same-event-listener-only-once/
+            // 링크 내용 요약 : 동일한 이벤트 리스너가 중복 등록됨
+            // EventTarget.addEventListener()는 동일한 파라미터를 갖는 리스너가 동일한 eventTarget에 중복되어 등록된다면 중복된 것들은 제거되고 오직 하나만 등록된다
+            // 그러나 여기에서 콘솔이 중복 출력되는 이유는, "익명함수"로 이벤트 리스너를 등록했기 때문이다. 
+            // 자바스크립트에서는 함수도 레퍼런스를 갖는 객체인데 동일한 레퍼런스를 갖는 이벤트 리스너가 여러번 등록된다면 중복 처리되어 하나만 남게된다. 
+            // 그런데 여기에서 익명함수로 작성된 이벤트 리스너는 이벤트에 대해 등록될 때마다 새로운 객체로 생성된다. 
+            // 즉 5번 등록된 리스너의 레퍼런스는 모두 다 다르기때문에 중복처리가 되지 않고 5개가 모두 등록되어버리는것.
+            // 해결방안 - 익명함수로 정의된 이벤트 리스너를 선언적 함수로 정의하여 등록하였다. 
+            // => 익명함수가 아니라 따로 함수를 선언해서 호출해보도록 하자!
+            
+            // =>> 해결!!!!!
+            // 해결내용 : 익명함수가 아니라 따로 별개의 함수를 선언해서 list가 클릭되면 liClick 함수가 실행되고 클릭된 요소(event.target)가 li가 아니라면 아무것도 실행하지 않고 그 외의 경우에는 클릭된 li에 show class가 있는지 판단해 클래스를 토글처럼 뗐다 붙였다 해준다. 슬라이드 효과는 css로 처리함! 
+            // 궁금한점 : liClick 함수에서 if (event.target.tagName != 'LI') return;을 사용했는데 continue나 break를 사용하려고 했더니 Jump target cannot cross function boundary. 라는 에러가 뜬다. 함수를 영역을 왜 나갈 수 없다는걸까? liClick은 버튼이벤트 바깥에 선언했는데 왜 못나간다는걸까 
+
+            // console.log(list);
+
+            // listLis.forEach(function(listLi){
+            //     listLi.addEventListener('click', function(event){
+            //         // .contains() : class의 유무를 확인
+            //         if (event.target.replyBox.classList.contains('show')) {
+            //             event.target.replyBox.classList.remove('show');
+            //         } else {
+            //             event.target.replyBox.classList.add('show');
+            //         }
+            //     });
+            // });
+
+            // 이벤트 위임 링크 : https://takeknowledge.tistory.com/32
+            // https://joshua1988.github.io/web-development/javascript/event-propagation-delegation/
+            
+    
+            // btnAddReply 클릭시 댓글 작성자, 댓글 내용 value가 있는지 유효성 검사
+            // const btnAddReply = document.getElementsByName('btnAddReply');
+            // getELementsByName : 해당 name으로 된 객체를 모두 배열로 받아온다. 객체가 한개일지라도 배열로 값을 받아야 받을 수 있다.
+            // getElementsByName을 사용하려면 뒤에 인덱스가 붙어야함(클릭한 요소의 인덱스 번호를 말함)
+            // 클릭한 요소의 인덱스 번호 가져오기 
+            // console.log(btnAddReply[0]); // 가능!
+            
+            // event.target은 html 태그 전체를 가져온다. 그러면 이 태그가 몇번째인지 어떻게 알 수 있을까? 
+            // 생각1 : 이 태그(댓글등록버튼)의 부모 li가 몇번째인지 알아온다. 그러면 li의 개수와 등록버튼의 개수도 일치할테니 인덱스 번호가 같을 것이다. 그러면 클릭된 태그의 부모 li의 인덱스를 btnAddReply[index]에 넣어주면 해당하는 태그가 나올것이다.
+            // 그러면 이벤트를 버튼이 아니고 li에 걸자 
+            // 잉 아니다 그냥 #list에 이벤트를 또 걸고 button name이 btnAddReply가 아니라면 아무것도 실행하지 않게 하고 맞다면 유효성 검사와 댓글 추가를 실행하게 하자.
+
+
+        
+
+            list.addEventListener('click', btnAddReplyClick);
+
+            // 아나 또다른 난관 
+            // event.target만 가져오는게 아니라 얘랑 같은 li 안에 있는 인풋들이랑 댓글리스트도 다 가져와야함... 
+            // 해결!!!
+
+
+            // btnAddReply.addEventListener('click', function(){
+            //     const replyUserName = document.querySelectorAll('replyUserName');
+            //     const replyContent = document.getElementById('replyContent');
+            //     const replyList = document.querySelector('.reply-list');
+            //     const makeReply = document.createElement('p');
+            //     let addReply = '';
+
+            //     if (replyUserName.value == '') {
+            //         alert('댓글 작성자를 입력해주세요.');
+            //         replyUserName.focus();
+            //     } else if (replyContent.value == '') {
+            //         alert('댓글 내용을 입력해주세요.');
+            //         replyContent.focus();
+            //     } else {
+            //         addReply = '<p class="reply">['
+            //         + replyUserName
+            //         + ']'
+            //         +  replyContent
+            //         + ' | '
+            //         + fullDateTime
+            //         + '</p>';
+
+            //         makeReply.innerHTML = addReply;
+            //         replyList.append(makeReply);
+            //     }
+            // });
+            // true라면 reply-list에 reply 추가
+
+
+            // li 클릭시 실행될 함수
+            function liClick() {
+                // console.log(event.target);
+
+                // li 이외의 요소가 클릭되면 아무것도 실행하지 않음
+                if (event.target.tagName != 'LI') return;
+                
+                // const listHeight = event.target.querySelector('.reply-list').offsetHeight;
+                // const replyBox = event.target.querySelector('.reply-box');
+
+                // // 열리지 않았을 경우
+                // if (replyBox.offsetHeight === 0) {
+                //     replyBox.animate([
+                //         { height: '28px'}
+                //     ], 500, 'forwards');
+                //     console.log('true');
+                // } else if () {
+                //     // 열려있는데 댓글 리스트가 비었을 경우 
+                // } else {
+                //     // 열려있고 댓글 리스트에 내용이 있을 경우 
+                // }
+
+
+
+                // 클릭된 li에 show class가 있다면
+                if (event.target.classList.contains('show')) {
+                    // show를 지움
+                    event.target.classList.remove('show');
+                } else {
+                    // show를 붙임
+                    event.target.classList.add('show');
+                }
+            };
+
+            // 댓글작성 버튼 클릭시 실행될 함수
+            function btnAddReplyClick() {
+                if (event.target.name != 'btnAddReply') return;
+
+                // parentNode : DOM트리에서 특정한 노드(주로 현재 다루고 있는 노드)의 부모노드를 반환. 읽기 전용이 된다 parent가 element일 경우 parentElement와 똑같은 값을 반환한다. 부모노드가 없을 경우 null이 반환된다.
+                // parentElement : 노드의 부모요소를 반환. 부모가 없거나 부모가 dom 요소가 아니라면 null을 반환한다.
+                // 링크 : https://dev-dain.tistory.com/128
+                // 특정 부모 노드가 가지는 특정 자식 노드 찾기 : https://hianna.tistory.com/718
+
+                // event.target은 btnAddReply가 될것이다 
+                
+                const replyWrite = event.target.parentNode;
+
+                const replyUserName = replyWrite.querySelector('.replyUserName');
+                const replyContent = replyWrite.querySelector('.replyContent');
+                const replyList = replyWrite.nextSibling;
+                const makeReply = document.createElement('p');
+                let addReply = '';
+
+
+                if (replyUserName.value == '') {
+                    alert('댓글 작성자를 입력해주세요.');
+                    replyUserName.focus();
+                } else if (replyContent.value == '') {
+                    alert('댓글 내용을 입력해주세요.');
+                    replyContent.focus();
+                } else {
+                    addReply = '['
+                    + replyUserName.value
+                    + '] '
+                    +  replyContent.value
+                    + ' | '
+                    + fullDateTime;
+
+                    makeReply.innerHTML = addReply;
+                    replyList.append(makeReply);
+                }
+
+
+                const replyCount = event.target.parentNode.parentNode.parentNode.querySelector('.reply-count');
+
+                replyCount.textContent = '[' + replyList.querySelectorAll('p').length + ']';
+            }
+
+
+        });
+
+        
+
+    </script>
+</body>
+</html>

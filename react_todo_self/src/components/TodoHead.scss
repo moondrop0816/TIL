@@ -1,0 +1,27 @@
+.head {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+
+    // 부모이름이 앞에 붙는 하위 컴포넌트 : &(부모이름)나머지이름 
+    &-left {
+        width: 60%;
+
+        // 하위에 오는 컴포넌트
+        // = .head .head-left .tasks-left
+        .tasks-left {
+            color: #8727e2;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+    &-right {
+        width: 40%;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: right;
+        align-self: flex-end;
+    }
+}
